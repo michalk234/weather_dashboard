@@ -13,8 +13,19 @@ export async function fetchWeather(city) {
   const data = await response.json();
 
   return {
-    city: data.name,
-    temp: data.main?.temp ?? null,
-    description: data.weather?.[0]?.description ?? ""
+    location: {
+      city: data.name,
+      country: data.sys?.country ?? "",
+      lat: data.coord?.lat ?? null,
+      lon: data.coord?.lon ?? null
+    },
+    current: {
+      temperature: data.main?.temp ?? null,
+      feelsLike: data.main?.feels_like ?? null,
+      humidity: data.main?.humidity ?? null,
+      windSpeed: data.wind?.speed ?? null,
+      pressure: data.main?.pressure ?? null,
+      description: data.weather?.[0]?.description ?? ""
+    }
   };
 }
